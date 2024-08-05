@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
   before_action :set_user, only: %i[ show edit update destroy ]
-  after_create :create_company
-
+  
+  
   # GET /users or /users.json
   def index
     @users = User.all
@@ -25,7 +25,7 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
 
     if @user.role == "owner"
-      @company = create_company(@user.company_name, @user.subdomain, @user.logo)
+      #@company = create_company(@user.company_name, @user.subdomain, @user.logo)
     end
 
     respond_to do |format|
