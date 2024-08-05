@@ -1,5 +1,7 @@
 class ApplicationController < ActionController::Base
 
+  set_current_tenant_by_subdomain(:company, :id)
+
   before_action :configure_permitted_parameters, if: :devise_controller?
   # before_action :set_current_tenant
   before_action :authenticate_user!

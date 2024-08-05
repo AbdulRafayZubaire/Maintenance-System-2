@@ -15,15 +15,18 @@ class Users::RegistrationsController < Devise::RegistrationsController
     super do |resource|
       # binding.pry
       if resource.persisted? # Check if the user was successfully created
-        
-        if resource.role == "owner"
-          @company = create_company(params[:user][:company_name], params[:user][:subdomain], params[:user][:logo], resource.id)
-          resource.update(company_id: @company.id)
+        if resource.role == 'owner'
+          # Create company and set the company_id for the resource
+          ActsAsTenant.with_mutable_tenant do
+            @company = create_company(params[:user][:company_name], params[:user][:subdomain], params[:user][:logo], resource.id)
+            resource.update(company_id: @company.id)
+          end
         end
         UserMailer.with(user: resource).welcome_email
       end
     end
   end
+
 
   # GET /resource/edit
   # def edit
