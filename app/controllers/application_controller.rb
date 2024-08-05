@@ -10,8 +10,8 @@ class ApplicationController < ActionController::Base
     if user_signed_in?
       subdomain = current_user.subdomain
       if subdomain.present?
-        binding.pry
-        request.subdomains = [subdomain]
+        # binding.pry
+        # request.subdomains = [subdomain]
       end
     end
   end

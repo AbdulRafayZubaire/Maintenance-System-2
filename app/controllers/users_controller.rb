@@ -1,6 +1,5 @@
 class UsersController < ApplicationController
   before_action :set_user, only: %i[ show edit update destroy ]
-  after_create :create_company
 
   # GET /users or /users.json
   def index
@@ -23,10 +22,11 @@ class UsersController < ApplicationController
   # POST /users or /users.json
   def create
     @user = User.new(user_params)
-
-    if @user.role == "owner"
-      @company = create_company(@user.company_name, @user.subdomain, @user.logo)
-    end
+    # binding.pry
+    # if @user.role == "owner"
+    #   @company = create_company(@user.company_name, @user.subdomain, @user.logo)
+    #   binding.pry
+    # end
 
     respond_to do |format|
       if @user.save
@@ -72,10 +72,6 @@ class UsersController < ApplicationController
         # Handle the error (e.g., redirect, render error page)
         flash[:error] = "User not found."
         redirect_to users_path # Replace with the path you want to redirect to
-    end
-
-    def create_company(company_name, subdomain, logo)
-      @company = Company.create(company_name: company_name, subdomain: subdomain, logo: logo)
     end
 
     # Only allow a list of trusted parameters through.

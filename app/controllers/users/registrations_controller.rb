@@ -13,8 +13,11 @@ class Users::RegistrationsController < Devise::RegistrationsController
   def create
     super do |resource|
       if resource.persisted? # Check if the user was successfully created
-        puts "hurray -----------"
-        # binding.pry
+        
+        if resource.role == "owner"
+          @company = create_company(params[:user][:company_name], params[:user][:subdomain], params[:user][:logo], resource.id)
+          resource.update(company_id: @company.id)
+        end
         UserMailer.with(user: resource).welcome_email
       end
     end
@@ -44,8 +47,11 @@ class Users::RegistrationsController < Devise::RegistrationsController
   #   super
   # end
 
-  # protected
-
+  protected
+  def create_company(company_name, subdomain, logo, owner_id)
+    @company = Company.create(company_name: company_name, subdomain: subdomain, logo: logo, owner_id: owner_id)
+  end
+  
   # If you have extra params to permit, append them to the sanitizer.
   # def configure_sign_up_params
   #   devise_parameter_sanitizer.permit(:sign_up, keys: [:attribute])
