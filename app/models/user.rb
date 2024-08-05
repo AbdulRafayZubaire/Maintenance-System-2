@@ -8,6 +8,8 @@ class User < ApplicationRecord
 
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
+
+  attr_accessor :company_name, :subdomain, :logo
          
   enum role: {
     owner: 0,

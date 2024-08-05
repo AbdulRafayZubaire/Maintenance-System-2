@@ -9,11 +9,6 @@
   </div>
 
   <div class="field">
-    <%= form.label :subdomain, 'Company Name', class: "border w-auto" %>
-    <%= form.text_field :subdomain %>
-  </div>
-
-  <div class="field">
     <%= form.label :email %>
     <%= form.text_field :email %>
   </div>
@@ -27,6 +22,18 @@
   <%= form.label :role %>
   <%= form.select :role, options_for_select([['Owner', 'owner'], ['Admin', 'admin'], ['Supervisor', 'supervisor'], ['Staff', 'staff'], ['Maintainer', 'maintainer']], resource.role) %>
 </div>
+
+<%# Company Fields %>
+
+  <div class="field">
+    <%= form.label :company_name, "Company Name" %>
+    <%= form.text_field :company_name %>
+  </div>
+
+    <div class="field">
+    <%= form.label :subdomain, "Company Url"%>
+    <%= form.text_field :subdomain %>
+  </div>
 
   <div class="field">
     <%= form.label :password %>
