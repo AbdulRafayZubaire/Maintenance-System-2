@@ -1,0 +1,56 @@
+<%= form_with(model: user, url: registration_path(user)) do |form| %>
+  <%= render "devise/shared/error_messages", resource: user %>
+
+<div class="field">
+    <%= form.label :name, class: " w-auto"%>
+    <%= form.text_field :name %>
+  </div>
+
+  <div class="field">
+    <%= form.label :email %>
+    <%= form.text_field :email %>
+  </div>
+
+  <div class="field">
+    <%= form.label :phone %>
+    <%= form.text_field :phone %>
+  </div>
+
+<div class="field">
+  <%= form.label :role %>
+  <%= form.select :role, options_for_select([['Owner', 'owner'], ['Admin', 'admin'], ['Supervisor', 'supervisor'], ['Staff', 'staff'], ['Maintainer', 'maintainer']], user.role) %>
+</div>
+
+  <div class="field">
+    <%= form.label :password %>
+    <% if @minimum_password_length %>
+    <em>(<%= @minimum_password_length %> characters minimum)</em>
+    <% end %><br />
+    <%= form.password_field :password, autocomplete: "new-password" %>
+  </div>
+
+  <div class="field">
+    <%= form.label :password_confirmation %><br />
+    <%= form.password_field :password_confirmation, autocomplete: "new-password" %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit "Sign up" %>
+  </div>
+<% end %>
+
+
+
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  var passwordField = document.getElementById('password-field');
+  var passwordConfirmationField = document.getElementById('password-confirmation-field');
+
+  if (passwordField && passwordConfirmationField) {
+    passwordField.addEventListener('input', function() {
+      passwordConfirmationField.value = passwordField.value;
+    });
+  }
+});
+</script>
