@@ -4,6 +4,7 @@ class UsersController < ApplicationController
   # GET /users or /users.json
   def index
     @users = User.all
+    # binding.pry
   end
 
   # GET /users/1 or /users/1.json
@@ -22,11 +23,9 @@ class UsersController < ApplicationController
   # POST /users or /users.json
   def create
     @user = User.new(user_params)
-    binding.pry
-    # if @user.role == "owner"
-    #   @company = create_company(@user.company_name, @user.subdomain, @user.logo)
-    #   binding.pry
-    # end
+    if @user.role == "owner"
+      #@company = create_company(@user.company_name, @user.subdomain, @user.logo)
+    end
 
     respond_to do |format|
       if @user.save
