@@ -3,8 +3,8 @@ require "active_support/core_ext/integer/time"
 Rails.application.configure do
 
    # Allow requests from `lvh.me`
- config.hosts << "lvh.me"
- 
+ config.hosts << "xyz.lvh.me"
+
   (1..15).each do |number|
     config.hosts << "#{number}.lvh.me"
   end

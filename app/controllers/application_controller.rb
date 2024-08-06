@@ -2,11 +2,26 @@ class ApplicationController < ActionController::Base
 
 
   set_current_tenant_through_filter
+  set_current_tenant_by_subdomain(:company, :id)
   before_action :set_tenant
   
   def set_tenant
-    @company = Company.find_by!(id: request.subdomain)
-    set_current_tenant(@company)
+    # binding.pry
+    subdomain = request.subdomains.first
+    return unless subdomain.present?
+
+    company = Company.find_by(subdomain: subdomain)
+    # return unless company.present?
+
+    set_current_tenant(company)
+
+    if current_user.present?
+      return if current_user.company == company
+      sign_out(current_user)
+      redirect_to new_user_session_path
+    end
+
+    # set_current_tenant(current_user&.company)
   end
 
  # set_current_tenant_by_subdomain(:company, :id)
