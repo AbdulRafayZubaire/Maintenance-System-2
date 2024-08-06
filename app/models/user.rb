@@ -17,4 +17,5 @@ class User < ApplicationRecord
     staff: 3,
     maintainer: 4
   }
+  extend DeviseOverrides
 end
