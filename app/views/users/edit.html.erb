@@ -1,6 +1,58 @@
 <h1>Editing User</h1>
 
-<%= render 'form', user: @user %>
+<%# <%= render 'form', user: @user %>
+
+
+<%= form_with(model: @user, url: user_path(@user),htnl: {method: :put}) do |form| %>
+  <%= render "devise/shared/error_messages", resource: @user %>
+
+  <div class="mb-3">
+    <%= form.label :name, class: "form-label" %>
+    <%= form.text_field :name, class: "form-control" %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :phone, class: "form-label" %>
+    <%= form.text_field :phone, class: "form-control" %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :role, class: "form-label" %>
+    <%= form.select :role, options_for_select([['Admin', 'admin'], ['Supervisor', 'supervisor'], ['Staff', 'staff'], ['Maintainer', 'maintainer']], @user.role), {}, class: "form-select" %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :password, class: "form-label" %>
+    <% if @minimum_password_length %>
+      <div class="form-text">
+        (<%= @minimum_password_length %> characters minimum)
+      </div>
+    <% end %>
+    <%= form.password_field :password, autocomplete: "new-password", class: "form-control" %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :password_confirmation, class: "form-label" %>
+    <%= form.password_field :password_confirmation, autocomplete: "new-password", class: "form-control" %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.submit "Update", class: "btn btn-primary" %>
+  </div>
+<% end %>
 
 <%= link_to 'Show', @user %> |
 <%= link_to 'Back', users_path %>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  var passwordField = document.querySelector('#user_password');
+  var passwordConfirmationField = document.querySelector('#user_password_confirmation');
+
+  if (passwordField && passwordConfirmationField) {
+    passwordField.addEventListener('input', function() {
+      passwordConfirmationField.value = passwordField.value;
+    });
+  }
+});
+</script>
