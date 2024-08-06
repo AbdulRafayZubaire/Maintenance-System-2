@@ -4,6 +4,7 @@ class UsersController < ApplicationController
   # GET /users or /users.json
   def index
     @users = User.all
+    # binding.pry
   end
 
   # GET /users/1 or /users/1.json
@@ -22,11 +23,9 @@ class UsersController < ApplicationController
   # POST /users or /users.json
   def create
     @user = User.new(user_params)
-    # binding.pry
-    # if @user.role == "owner"
-    #   @company = create_company(@user.company_name, @user.subdomain, @user.logo)
-    #   binding.pry
-    # end
+    if @user.role == "owner"
+      #@company = create_company(@user.company_name, @user.subdomain, @user.logo)
+    end
 
     respond_to do |format|
       if @user.save
@@ -42,7 +41,7 @@ class UsersController < ApplicationController
   # PATCH/PUT /users/1 or /users/1.json
   def update
     respond_to do |format|
-      if @user.update(user_params)
+      if @user.update(user_update_params)
         format.html { redirect_to user_url(@user), notice: "User was successfully updated." }
         format.json { render :show, status: :ok, location: @user }
       else
@@ -77,5 +76,8 @@ class UsersController < ApplicationController
     # Only allow a list of trusted parameters through.
     def user_params
       params.fetch(:user, {})
+    end
+    def user_update_params
+      params.require(:user).permit(:name, :phone, :role, :password)
     end
 end

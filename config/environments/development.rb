@@ -2,20 +2,32 @@ require "active_support/core_ext/integer/time"
 
 Rails.application.configure do
 
+   # Allow requests from `lvh.me`
+ config.hosts << "abdulrafay.lvh.me"
+
+  (1..15).each do |number|
+    config.hosts << "#{number}.lvh.me"
+  end
+
   # subdomain
   config.action_dispatch.tld_length = 0
-  # 
-  # devise 
-  config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
+
+  # gmail setup
+  # config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
   config.action_mailer.delivery_method = :smtp
-  config.action_mailer.smtp_settings = {
-:address => 'smtp.gmail.com',
-:port => 587,
-:user_name => "abdurrafaykhawer20@gmail.com",
-:password => "emuc pbys lnhu jycq",
-:authentication => 'plain',
-:enable_starttls_auto => true
-}
+#   config.action_mailer.smtp_settings = {
+# :address => 'smtp.gmail.com',
+# :port => 587,
+# :user_name => "abdurrafaykhawer20@gmail.com",
+# :password => "emuc pbys lnhu jycq",
+# :authentication => 'plain',
+# :enable_starttls_auto => true
+# }
+
+# mail catcher
+# config.action_mailer.delivery_method = :smtp
+config.action_mailer.smtp_settings = { :address => '127.0.0.1', :port => 1025 }
+config.action_mailer.raise_delivery_errors = false
   # Settings specified here will take precedence over those in config/application.rb.
 
   # In the development environment your application's code is reloaded any time
@@ -49,7 +61,7 @@ Rails.application.configure do
   config.active_storage.service = :local
 
   # Don't care if the mailer can't send.
-  config.action_mailer.raise_delivery_errors = true
+  # config.action_mailer.raise_delivery_errors = true
 
   config.action_mailer.perform_caching = false
 

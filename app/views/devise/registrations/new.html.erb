@@ -1,55 +1,57 @@
-<h2>Sign up</h2>
+<h2 class="mb-4">Sign up</h2>
 
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |form| %>
+<%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { class: 'needs-validation', novalidate: true }) do |form| %>
   <%= render "devise/shared/error_messages", resource: resource %>
 
-  <div class="field">
-    <%= form.label :name, class: "border border-primary w-auto"%>
-    <%= form.text_field :name %>
+  <div class="mb-3">
+    <%= form.label :name, class: "form-label" %>
+    <%= form.text_field :name, class: "form-control" %>
   </div>
 
-  <div class="field">
-    <%= form.label :email %>
-    <%= form.text_field :email %>
+  <div class="mb-3">
+    <%= form.label :email, class: "form-label" %>
+    <%= form.text_field :email, class: "form-control" %>
   </div>
 
-  <div class="field">
-    <%= form.label :phone %>
-    <%= form.text_field :phone %>
+  <div class="mb-3">
+    <%= form.label :phone, class: "form-label" %>
+    <%= form.text_field :phone, class: "form-control" %>
   </div>
 
-<div class="field">
-  <%= form.label :role %>
-  <%= form.select :role, options_for_select([['Owner', 'owner'], ['Admin', 'admin'], ['Supervisor', 'supervisor'], ['Staff', 'staff'], ['Maintainer', 'maintainer']], resource.role) %>
-</div>
-
-<%# Company Fields %>
-
-  <div class="field">
-    <%= form.label :company_name, "Company Name" %>
-    <%= form.text_field :company_name %>
+  <div class="mb-3">
+    <%= form.label :role, class: "form-label" %>
+    <%= form.select :role, options_for_select([['Owner', 'owner'], ['Admin', 'admin'], ['Supervisor', 'supervisor'], ['Staff', 'staff'], ['Maintainer', 'maintainer']], resource.role), {}, class: "form-select" %>
   </div>
 
-    <div class="field">
-    <%= form.label :subdomain, "Company Url"%>
-    <%= form.text_field :subdomain %>
+  <!-- Company Fields -->
+
+  <div class="mb-3">
+    <%= form.label :company_name, "Company Name", class: "form-label" %>
+    <%= form.text_field :company_name, class: "form-control" %>
   </div>
 
-  <div class="field">
-    <%= form.label :password %>
+  <div class="mb-3">
+    <%= form.label :subdomain, "Company URL", class: "form-label" %>
+    <%= form.text_field :subdomain, class: "form-control" %>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :password, class: "form-label" %>
     <% if @minimum_password_length %>
-    <em>(<%= @minimum_password_length %> characters minimum)</em>
-    <% end %><br />
-    <%= form.password_field :password, autocomplete: "new-password" %>
+      <div class="form-text">
+        (<%= @minimum_password_length %> characters minimum)
+      </div>
+    <% end %>
+    <%= form.password_field :password, autocomplete: "new-password", class: "form-control" %>
   </div>
 
-  <div class="field">
-    <%= form.label :password_confirmation %><br />
-    <%= form.password_field :password_confirmation, autocomplete: "new-password" %>
+  <div class="mb-3">
+    <%= form.label :password_confirmation, class: "form-label" %>
+    <%= form.password_field :password_confirmation, autocomplete: "new-password", class: "form-control" %>
   </div>
 
-  <div class="actions">
-    <%= form.submit "Sign up" %>
+  <div class="mb-3">
+    <%= form.submit "Sign up", class: "btn btn-primary" %>
   </div>
 <% end %>
 

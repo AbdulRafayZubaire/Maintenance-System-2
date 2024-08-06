@@ -10,7 +10,7 @@
 
 
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+    
   </head>
 
   <body>
@@ -33,6 +33,15 @@
             <li class="nav-item">
               <%= link_to 'Add user', new_user_path, class: 'nav-link' %>
             </li>
+            <% if current_user %>
+              <li class="nav-item">
+                <%= button_to 'Logout', destroy_user_session_path, class: 'nav-link', method: :delete %>
+              </li>
+            <% else %>
+              <li class="nav-item">
+                <%= link_to 'Login', new_user_session_path, class: 'nav-link' %>
+              </li>
+            <% end %>
           </ul>
         </div>
       </div>
